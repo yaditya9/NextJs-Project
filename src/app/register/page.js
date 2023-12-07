@@ -25,8 +25,8 @@ const RegisterPage = () => {
       <Card
         elevation={8}
         sx={{
-          maxWidth: 1000,
-          minWidth: 300, // Smaller minWidth for smaller screens
+          maxWidth: 700,
+          minWidth: 270, // Smaller minWidth for smaller screens
           borderRadius: "24px",
           height: "auto", // Changed to 'auto' for better responsiveness
           backgroundImage: "linear-gradient(to right, #ffafbd, #ffc3a0)",
@@ -46,12 +46,13 @@ const RegisterPage = () => {
                   fontFamily: "Roboto, sans-serif",
                   fontWeight: 500,
                   textAlign: "center",
+                  mt: { xs: 4, sm: 6, md: 8 }, // Responsive margin-top
                 }}
               >
                 Get started!
               </Typography>
             </Grid>
-            <Grid item xs={12} sm={8} md={8} lg={8} xl={8}>
+            <Grid item xs={10} sm={8} md={8} lg={8} xl={8}>
               {" "}
               {/* Adjusts size based on screen */}
               <TextField
@@ -62,16 +63,16 @@ const RegisterPage = () => {
                 margin="normal"
               />
             </Grid>
-            <Grid item xs={12} sm={8} md={8} lg={8} xl={8}>
+            <Grid item xs={10} sm={8} md={8} lg={8} xl={8}>
               <TextField
                 label="Name"
                 type="text"
                 variant="outlined"
-                fullWidth
+                sx={{ width: "100%" }}
                 margin="normal"
               />
             </Grid>
-            <Grid item xs={12} sm={8} md={8} lg={8} xl={8}>
+            <Grid item xs={10} sm={8} md={8} lg={8} xl={8}>
               <FormControlLabel
                 control={<Checkbox />}
                 label={
@@ -85,12 +86,19 @@ const RegisterPage = () => {
                     </a>
                   </>
                 }
-                sx={{ justifyContent: "center" }}
+                sx={{
+                  justifyContent: "center",
+                  marginBottom: { xs: 7, sm: 10, md: 10, lg: 10, xl: 12 },
+                  marginTop: -2,
+                  "& .MuiFormControlLabel-label": {
+                    fontSize: { xs: "0.75rem", sm: "0.875rem", md: "1rem" }, // Responsive font sizes
+                  },
+                }}
               />
             </Grid>
             <Grid
               item
-              xs={12}
+              xs={10}
               sm={8}
               md={8}
               lg={8}
@@ -100,7 +108,11 @@ const RegisterPage = () => {
               <Button
                 variant="contained"
                 color="primary"
-                sx={{ maxWidth: "60%", minWidth: "60%", margin: "0 auto" }}
+                fullWidth
+                margin="normal"
+                sx={{
+                  minwidth: "100%",
+                }}
               >
                 Submit
               </Button>
