@@ -1,9 +1,52 @@
-import Image from 'next/image'
-import styles from './page.module.css'
-
+import Image from "next/image";
+import styles from "./page.module.css";
+import * as React from "react";
+import { Box, Button } from "@mui/material";
 export default function Home() {
   return (
-    <main className={styles.main}>
+    <>
+      <Box p={2}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            height: "20vh",
+          }}
+        >
+          <h1>Heading</h1>
+        </div>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            "& button": { m: 1 },
+          }}
+        >
+          <div>
+            <Button size="small">Small</Button>
+            <Button size="medium">Medium</Button>
+            <Button size="large">Large</Button>
+          </div>
+          <div>
+            <Button variant="outlined" size="small">
+              Small
+            </Button>
+            <Button variant="outlined" size="medium">
+              Medium
+            </Button>
+            <Button variant="outlined" size="large">
+              Large
+            </Button>
+          </div>
+        </Box>
+        <Box p={1}>
+          <Button variant="contained">Click here!</Button>
+          <Button variant="text">No border</Button>
+        </Box>
+      </Box>
+    </>
+
+    /*{ <main className={styles.main}>
       <div className={styles.description}>
         <p>
           Get started by editing&nbsp;
@@ -15,7 +58,7 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            By{' '}
+            By{" "}
             <Image
               src="/vercel.svg"
               alt="Vercel Logo"
@@ -90,6 +133,6 @@ export default function Home() {
           </p>
         </a>
       </div>
-    </main>
-  )
+    </main> }*/
+  );
 }
