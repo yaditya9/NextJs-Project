@@ -67,6 +67,7 @@ const RegisterPage = () => {
         justifyContent: "center",
         alignItems: "center",
         height: "auto",
+        /* background */
       }}
     >
       <Card
