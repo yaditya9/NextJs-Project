@@ -17,7 +17,8 @@ const RegisterPage = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [passwordError, setPasswordError] = React.useState("");
-
+  const [conPasswordError, setConPasswordError] = React.useState("");
+  const [conPassword, setConPassword] = React.useState("");
   useEffect(() => {
     console.log(`Email is updated to ${email}`);
   }, [email]);
@@ -32,12 +33,31 @@ const RegisterPage = () => {
       setPasswordError("");
     }
   }, [password]);
+  /* useEffect(() => {
+    if (
+      conPassword === "" ||
+      conPassword === null ||
+      conPassword === undefined
+    ) {
+      setConPasswordError("Password required");
+    } else {
+      setConPasswordError("");
+    }
+  }, [conPassword]); */
 
   function handleEmailChange(e) {
     setEmail(e.target.value);
   }
   function handlePasswordChange(e) {
     setPassword(e.target.value);
+  }
+  function handleConPasswordChange(e) {
+    setConPassword(e.target.value);
+    if (e.target.value === password) {
+      setConPasswordError("");
+    } else {
+      setConPasswordError("Passwords do not match");
+    }
   }
 
   return (
@@ -46,7 +66,7 @@ const RegisterPage = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "100vh",
+        height: "auto",
       }}
     >
       <Card
@@ -108,6 +128,22 @@ const RegisterPage = () => {
               />
             </Grid>
             <Grid item xs={10} sm={8} md={8} lg={8} xl={8}>
+              <TextField
+                label="Confirm Password"
+                type="password"
+                /* value={password}
+                onChange={handlePasswordChange} */
+                value={conPassword}
+                onChange={handleConPasswordChange}
+                /* error={passwordError} */
+                helperText={conPasswordError}
+                /* onChange={handlePasswordChange} */
+                variant="outlined"
+                sx={{ width: "100%" }}
+                margin="normal"
+              />
+            </Grid>
+            <Grid item xs={10} sm={8} md={8} lg={8} xl={8}>
               <FormControlLabel
                 control={<Checkbox />}
                 label={
@@ -126,7 +162,12 @@ const RegisterPage = () => {
                   marginBottom: { xs: 7, sm: 10, md: 10, lg: 10, xl: 12 },
                   marginTop: -2,
                   "& .MuiFormControlLabel-label": {
-                    fontSize: { xs: "0.75rem", sm: "0.875rem", md: "1rem" }, // Responsive font sizes
+                    fontSize: {
+                      xs: "0.75rem",
+                      sm: "0.875rem",
+                      md: "0.875rem",
+                      lg: "0.875rem",
+                    }, // Responsive font sizes
                   },
                 }}
               />
@@ -162,7 +203,7 @@ const RegisterPage = () => {
               >
                 Already registered?{"   "}
                 <a
-                  href="https://www.google.com"
+                  href="http://localhost:3002/login"
                   style={{ textDecoration: "none", marginLeft: "5px" }}
                 >
                   Sign In
