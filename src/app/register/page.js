@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
 
 import {
   Card,
@@ -13,6 +14,32 @@ import {
 } from "@mui/material";
 
 const RegisterPage = () => {
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [passwordError, setPasswordError] = React.useState("");
+
+  useEffect(() => {
+    console.log(`Email is updated to ${email}`);
+  }, [email]);
+  useEffect(() => {
+    console.log(`Password is updated to ${password}`);
+  }, [password]);
+
+  useEffect(() => {
+    if (password === "" || password === null || password === undefined) {
+      setPasswordError("Password required");
+    } else {
+      setPasswordError("");
+    }
+  }, [password]);
+
+  function handleEmailChange(e) {
+    setEmail(e.target.value);
+  }
+  function handlePasswordChange(e) {
+    setPassword(e.target.value);
+  }
+
   return (
     <Box
       sx={{
@@ -29,7 +56,8 @@ const RegisterPage = () => {
           minWidth: 270, // Smaller minWidth for smaller screens
           borderRadius: "24px",
           height: "auto", // Changed to 'auto' for better responsiveness
-          backgroundImage: "linear-gradient(to right, #ffafbd, #ffc3a0)",
+          backgroundImage: "linear-gradient(to right, #91F1EF, #FFD5E0)",
+          margin: "normal",
         }}
       >
         <CardContent>
@@ -58,6 +86,8 @@ const RegisterPage = () => {
               <TextField
                 label="Email"
                 type="email"
+                value={email}
+                onChange={handleEmailChange}
                 variant="outlined"
                 fullWidth
                 margin="normal"
@@ -65,8 +95,13 @@ const RegisterPage = () => {
             </Grid>
             <Grid item xs={10} sm={8} md={8} lg={8} xl={8}>
               <TextField
-                label="Name"
-                type="text"
+                label="Password"
+                type="password"
+                value={password}
+                onChange={handlePasswordChange}
+                /* error={passwordError} */
+                helperText={passwordError}
+                /* onChange={handlePasswordChange} */
                 variant="outlined"
                 sx={{ width: "100%" }}
                 margin="normal"
@@ -77,7 +112,7 @@ const RegisterPage = () => {
                 control={<Checkbox />}
                 label={
                   <>
-                    Agree if you have accepted to
+                    Agree if you have accepted the
                     <a
                       href="https://generator.lorem-ipsum.info/terms-and-conditions"
                       style={{ textDecoration: "none", marginLeft: "5px" }}
@@ -110,6 +145,7 @@ const RegisterPage = () => {
                 color="primary"
                 fullWidth
                 margin="normal"
+                /* onClick={handleSubmit} */
                 sx={{
                   minwidth: "100%",
                 }}
