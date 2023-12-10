@@ -1,10 +1,14 @@
 "use client";
 import React, { useEffect } from "react";
 
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import {
   Card,
   CardContent,
   Typography,
+  InputAdornment,
+  IconButton,
   TextField,
   FormControlLabel,
   Checkbox,
@@ -19,6 +23,10 @@ const RegisterPage = () => {
   const [passwordError, setPasswordError] = React.useState("");
   const [conPasswordError, setConPasswordError] = React.useState("");
   const [conPassword, setConPassword] = React.useState("");
+  const [showPassword, setShowPassword] = React.useState(false);
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
   useEffect(() => {
     console.log(`Email is updated to ${email}`);
   }, [email]);
@@ -117,7 +125,7 @@ const RegisterPage = () => {
             <Grid item xs={10} sm={8} md={8} lg={8} xl={8}>
               <TextField
                 label="Password"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={handlePasswordChange}
                 /* error={passwordError} */
@@ -126,6 +134,19 @@ const RegisterPage = () => {
                 variant="outlined"
                 sx={{ width: "100%" }}
                 margin="normal"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
               />
             </Grid>
             <Grid item xs={10} sm={8} md={8} lg={8} xl={8}>
