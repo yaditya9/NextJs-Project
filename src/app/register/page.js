@@ -24,8 +24,13 @@ const RegisterPage = () => {
   const [conPasswordError, setConPasswordError] = React.useState("");
   const [conPassword, setConPassword] = React.useState("");
   const [showPassword, setShowPassword] = React.useState(false);
+  const [showConPassword, setShowConPassword] = React.useState(false);
+  const [result, setResult] = React.useState("");
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
+  };
+  const handleClickShowConPassword = () => {
+    setShowConPassword(!showConPassword);
   };
   useEffect(() => {
     console.log(`Email is updated to ${email}`);
@@ -41,6 +46,25 @@ const RegisterPage = () => {
       setPasswordError("");
     }
   }, [password]);
+
+  async function register() {
+    console.log(
+      `Need to call backend api to register with values ${email} and ${password}`
+    );
+
+    const response = await fetch("http://localhost:3001/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json", // Include this line
+      },
+      body: JSON.stringify({
+        username: email /* `${email}` */,
+        password: password /* `${password}` */,
+      }),
+    });
+    const data = await response.json();
+    setResult(data.result);
+  }
   /* useEffect(() => {
     if (
       conPassword === "" ||
@@ -103,10 +127,26 @@ const RegisterPage = () => {
                   fontFamily: "Roboto, sans-serif",
                   fontWeight: 500,
                   textAlign: "center",
-                  mt: { xs: 4, sm: 6, md: 8 }, // Responsive margin-top
+                  mt: { xs: 4, sm: 2, md: 2, lg: 4, xl: 4 }, // Responsive margin-top
                 }}
               >
                 Get started!
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              {" "}
+              {/* Full width on all screens */}
+              <Typography
+                variant="h4"
+                gutterBottom
+                sx={{
+                  fontFamily: "Roboto, sans-serif",
+                  fontWeight: 500,
+                  textAlign: "center",
+                  mt: { xs: 4, sm: 2, md: 2, lg: 4, xl: 4 }, // Responsive margin-top
+                }}
+              >
+                {result}
               </Typography>
             </Grid>
             <Grid item xs={10} sm={8} md={8} lg={8} xl={8}>
@@ -152,7 +192,7 @@ const RegisterPage = () => {
             <Grid item xs={10} sm={8} md={8} lg={8} xl={8}>
               <TextField
                 label="Confirm Password"
-                type="password"
+                type={showConPassword ? "text" : "password"}
                 /* value={password}
                 onChange={handlePasswordChange} */
                 value={conPassword}
@@ -163,6 +203,19 @@ const RegisterPage = () => {
                 variant="outlined"
                 sx={{ width: "100%" }}
                 margin="normal"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowConPassword}
+                        edge="end"
+                      >
+                        {showConPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
               />
             </Grid>
             <Grid item xs={10} sm={8} md={8} lg={8} xl={8}>
@@ -206,6 +259,7 @@ const RegisterPage = () => {
               <Button
                 variant="contained"
                 color="primary"
+                onClick={register}
                 fullWidth
                 margin="normal"
                 /* onClick={handleSubmit} */
@@ -225,7 +279,7 @@ const RegisterPage = () => {
               >
                 Already registered?{"   "}
                 <a
-                  href="http://localhost:3002/login"
+                  href=".\login"
                   style={{ textDecoration: "none", marginLeft: "5px" }}
                 >
                   Sign In
